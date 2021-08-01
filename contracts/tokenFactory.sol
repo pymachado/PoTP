@@ -16,7 +16,7 @@ contract tokenFactory is ERC1155, AccessControl {
   }
 
   function supportsInterface(bytes4 interfaceId) public view virtual override(ERC1155, AccessControl) returns (bool) {
-    return super.supportsInterface(interfaceId);
+    return this.supportsInterface(interfaceId);
   }
 
   function createYield(
@@ -28,5 +28,10 @@ contract tokenFactory is ERC1155, AccessControl {
       verificationOf[newItemId][_addressGrower] = _pova;
       _mint(_addressGrower, newItemId, _amount, _pova);
       return true;
-    }  
+    }
+
+  function burnYield(address _grower, uint256 _tokenId, uint256 _amount) external returns (bool) {
+    _burn(_grower, _tokenId, _amount);
+    return true;
+  }  
 }
